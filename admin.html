@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <link href="./output.css" rel="stylesheet">
+  <script>
+    let token = localStorage.getItem("token")
+    let user = JSON.parse(localStorage.getItem("user"))
+
+    if (!token || !user || user.role == "user") {
+      location.replace("auth.html")
+    }
+  </script>
+
+</head>
+
+<body class="bg-gray-100">
+  <div id="loaderComp" class="fixed hidden flex justify-center items-center z-5 bg-white h-full w-full">
+    <!-- From Uiverse.io by mahendrameghwal -->
+    <div class="w-full gap-x-2 flex justify-center items-center">
+      <div class="w-5 bg-[#d991c2] animate-pulse h-5 rounded-full animate-bounce"></div>
+      <div class="w-5 animate-pulse h-5 bg-[#9869b8] rounded-full animate-bounce"></div>
+      <div class="w-5 h-5 animate-pulse bg-[#6756cc] rounded-full animate-bounce"></div>
+    </div>
+
+
+  </div>
+
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900  text-white flex flex-col">
+      <div class="p-6 text-2xl font-bold border-b border-gray-700">
+        AdminPanel
+      </div>
+
+      <nav id="navbar" class="flex-1 min-h-screen p-4 space-y-2">
+        <a href="#" class="flex items-center gap-3 p-3 rounded-lg bg-gray-700 hover:bg-gray-700 transition">
+          <i class="fa fa-home"></i> Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700 transition">
+          <i class="fa fa-users"></i> News
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700 transition">
+          <i class="fa fa-box"></i> Category
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700 transition">
+          <i class="fa fa-chart-line"></i> Users
+        </a>
+        <button onclick="goToWeb()" href="#" class="btn text-white bg-gray-700 rounded-[10px]">
+          Go to WebSite
+        </button>
+      </nav>
+
+      <div class="p-4 border-t border-gray-700">
+        <button class="w-full bg-red-500 hover:bg-red-600 py-2 rounded-lg">
+          Logout
+        </button>
+      </div>
+    </aside>
+
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col">
+
+      <!-- Navbar -->
+      <header class="bg-white shadow p-4 flex justify-between items-center">
+        <h1 class="text-xl font-semibold">Dashboard</h1>
+
+        <div class="flex items-center gap-4">
+          <button class="btn text-white bg-gray-700 rounded-[10px]" onclick="logOut()">Log Out</button>
+          <input type="text" placeholder="Search..."
+            class="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+          <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="p-6">
+        <div id="dashboard" class="page">Dashboard</div>
+        <div id="news" class="page hidden">
+          <div class="p-6">
+
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-lg font-semibold text-gray-700">News Table</h2>
+              <!-- You can open the modal using ID.showModal() method -->
+              <button class="btn text-white bg-gray-700 rounded-[10px]" onclick="my_modal_3.showModal()"><i
+                  class="fa-solid fa-plus"></i> Add News</button>
+              <dialog id="my_modal_3" class="modal">
+                <div class="modal-box bg-[#1a1d24] text-gray-300 border border-gray-700 max-w-lg">
+
+                  <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-400">
+                      ✕
+                    </button>
+                  </form>
+                  <form id="addNews" method="dialog">
+
+                    <div class="flex items-center gap-2 mb-6">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
+                      <h3 class="text-lg font-semibold text-white">Create News</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Title</span></label>
+                        <input required type="text" placeholder="Enter title"
+                          class="input input-bordered w-full bg-[#242933] border-gray-600 focus:border-blue-500" />
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Content</span></label>
+                        <textarea required placeholder="Minimum content..."
+                          class="textarea textarea-bordered h-24 bg-[#242933] border-gray-600 focus:border-blue-500 w-full"></textarea>
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Slug</span></label>
+                        <input required type="text"
+                          class="input input-bordered w-full bg-[#242933] border-gray-600 focus:border-blue-500" />
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Category</span></label>
+                        <fieldset class="fieldset p-0 border-none shadow-none">
+                          <select required id="categorySelect"
+                            class="select select-bordered w-full bg-[#242933] border-gray-600 text-gray-300 focus:outline-none">
+                            <option disabled selected>Pick a category</option>
+                          </select>
+                        </fieldset>
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Thumbnail URL</span></label>
+                        <input required type="text" placeholder="https://kvneklvnlk/lmkk"
+                          class="input input-bordered w-full bg-[#242933] border-gray-600 focus:border-blue-500 text-sm" />
+                      </div>
+                    </div>
+
+                    <div class="modal-action mt-8">
+                      <form method="dialog" class="w-full">
+                        <button type="submit"
+                          class="btn btn-primary w-full md:w-auto md:float-right bg-blue-600 border-none hover:bg-blue-700 normal-case">Create</button>
+                      </form>
+                    </div>
+                  </form>
+                </div>
+              </dialog>
+            </div>
+
+
+
+            <!-- Table -->
+            <div class="bg-white rounded-xl shadow overflow-hidden">
+              <table class="w-full border-separate border-spacing-y-2 text-sm">
+
+                <!-- Head -->
+                <thead>
+                  <tr class="text-left text-gray-500 text-xs">
+                    <th class="px-6 py-3">News</th>
+                    <th class="px-6 py-3">Category</th>
+                    <th class="px-6 py-3">Stats</th>
+                    <th class="px-6 py-3">Date</th>
+                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3">Action</th>
+                  </tr>
+                </thead>
+
+                <!-- Body -->
+                <tbody id="newsTable">
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="category" class="page hidden">
+
+          <div class="p-6 bg-gray-100">
+
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-lg font-semibold text-gray-700">
+                Category Table
+              </h2>
+              <!-- Open the modal using ID.showModal() method -->
+              <button class="btn bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm"
+                onclick="my_modal_2.showModal()">+ Add Category</button>
+              <!-- Modal -->
+              <dialog id="my_modal_2" class="modal">
+                <div class="modal-box w-11/12 max-w-lg">
+
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                    Add Category
+                  </h3>
+
+                  <form id="categoryForm" class="space-y-4">
+
+                    <!-- Title -->
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">
+                        Title
+                      </label>
+
+                      <input required type="text" placeholder="Enter category title"
+                        class="input input-bordered w-full" />
+                    </div>
+
+                    <!-- Slug -->
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">
+                        Slug
+                      </label>
+
+                      <input required type="text" placeholder="Enter slug" class="input input-bordered w-full" />
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex justify-end gap-3 pt-4">
+
+                      <button type="button" class="btn bg-gray-200 hover:bg-gray-300 text-black"
+                        onclick="my_modal_2.close()">
+                        Cancel
+                      </button>
+
+                      <button id="saveCategory" type="submit" class="btn bg-purple-600 hover:bg-purple-700 text-white">
+                        Save Category
+                      </button>
+
+                    </div>
+
+                  </form>
+                </div>
+
+                <!-- Backdrop -->
+                <form method="dialog" class="modal-backdrop">
+                  <button>close</button>
+                </form>
+              </dialog>
+              <dialog id="my_modal_4" class="modal">
+                <div class="modal-box w-11/12 max-w-lg">
+
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                    Update Category
+                  </h3>
+
+                  <form id="categoryFormUp" class="space-y-4">
+
+                    <!-- Title -->
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">
+                        Title
+                      </label>
+
+                      <input id="titleinp1" required type="text" placeholder="Enter category title"
+                        class="input input-bordered w-full" />
+                    </div>
+
+                    <!-- Slug -->
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">
+                        Slug
+                      </label>
+
+                      <input id="titleinp2" required type="text" placeholder="Enter slug" class="input input-bordered w-full" />
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex justify-end gap-3 pt-4">
+
+                      <button type="button" class="btn bg-gray-200 hover:bg-gray-300 text-black"
+                        onclick="my_modal_4.close()">
+                        Cancel
+                      </button>
+
+                      <button type="submit" class="btn bg-purple-600 hover:bg-purple-700 text-white">
+                        Update Category
+                      </button>
+
+                    </div>
+
+                  </form>
+                </div>
+
+                <!-- Backdrop -->
+                <form method="dialog" class="modal-backdrop">
+                  <button>close</button>
+                </form>
+              </dialog>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white rounded-xl shadow overflow-hidden">
+
+              <table class="w-full border-separate border-spacing-y-2 text-sm">
+
+                <!-- Head -->
+                <thead>
+                  <tr class="text-left text-gray-500 text-xs">
+                    <th class="px-6 py-3">№</th>
+                    <th class="px-6 py-3">Title</th>
+                    <th class="px-6 py-3">Slug</th>
+                    <th class="px-6 py-3">Created Date</th>
+                    <th class="px-6 py-3">Updated Date</th>
+                    <th class="px-6 py-3">Actions</th>
+                  </tr>
+                </thead>
+
+                <!-- Body -->
+                <tbody id="categoryTable">
+
+                </tbody>
+
+              </table>
+
+            </div>
+          </div>
+
+        </div>
+        <div id="users" class="page hidden">Users</div>
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- Font Awesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="service.js"></script>
+  <script src="admin.js"></script>
+  <script src="adminscr/news.js"></script>
+  <script src="adminscr/category.js"></script>
+
+</body>
+
+</html>
