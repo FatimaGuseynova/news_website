@@ -101,3 +101,28 @@ let updateCategoryId = async (id, params) => {
     let data = await res.json()
     return data
 }
+
+// user
+
+let getUsers = async () => {
+    let res = await fetch(`${BASE_URL}/users`, {
+        headers: {
+            "authorization": `Bearer ${tokens}`
+        }
+    })
+    let data = await res.json()
+    return data
+}
+
+// news
+let deleteNewsId = async (id) => {
+    let res = await fetch(`${BASE_URL}/news/${id}`, {
+        method: "DELETE",
+        headers: {
+            "authorization": `Bearer ${tokens}`
+        }
+
+    })
+    let data = await res.json()
+    return data
+}

@@ -368,7 +368,30 @@
           </div>
 
         </div>
-        <div id="users" class="page hidden">Users</div>
+        <div id="users" class="page hidden">
+          <div class="overflow-x-auto bg-white rounded-2xl shadow border border-gray-200">
+  <table class="w-full text-left border-collapse">
+
+    <!-- Table Head -->
+    <thead class="text-gray-600 text-sm">
+      <tr class="border-b">
+        <th class="px-8 py-6 font-semibold">User</th>
+        <th class="px-4 py-6 font-semibold">Role</th>
+        <th class="px-4 py-6 font-semibold">Provider</th>
+        <th class="px-4 py-6 font-semibold">Gender</th>
+        <th class="px-4 py-6 font-semibold">Password</th>
+      </tr>
+    </thead>
+
+    <!-- Table Body -->
+    <tbody id="userTable">
+      
+    </tbody>
+
+  </table>
+</div>
+          
+        </div>
       </main>
 
     </div>
@@ -383,6 +406,7 @@
   <script src="admin.js"></script>
   <script src="adminscr/news.js"></script>
   <script src="adminscr/category.js"></script>
+  <script src="adminscr/users.js"></script>
 
 </body>
 

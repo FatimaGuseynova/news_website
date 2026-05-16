@@ -26,7 +26,7 @@ addNews.onsubmit = async function (e) {
     });
   }
 
-getNews()
+  getNews()
 }
 
 async function getNews() {
@@ -50,6 +50,19 @@ function renderCategorySelect(arr) {
                           <option value="${item.id}" >${item.title}</option>
     `)
   categorySelect.innerHTML += empty
+}
+
+async function deleteNews(id) {
+  Swal.fire({
+    title: "Do you want to delete this category?",
+    showCancelButton: true,
+    confirmButtonText: "Delete",
+  }).then(async (result) => {
+    let res = await deleteNewsId(id)
+    if (result.isConfirmed) Swal.fire("Deleted!", "", "success");
+    await getNews()
+  });
+
 }
 
 function renderNews(arr) {
@@ -106,7 +119,7 @@ function renderNews(arr) {
                         <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-md">
                           Edit
                         </button>
-                        <button class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded-md">
+                        <button onclick="deleteNews(${item.id})" class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded-md">
                           Delete
                         </button>
                       </div>
