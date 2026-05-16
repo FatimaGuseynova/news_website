@@ -13,8 +13,6 @@ loginForm.onsubmit = async (e) => {
     let res = await login(obj)
     loginBtn.innerHTML = "Submit"
     loginBtn.disabled = false
-
-    console.log(res)
     if (res.error || res.user.role == "user") {
         let message = res.error ? res.massage : "Access Denied"
         renderToast(false, message)

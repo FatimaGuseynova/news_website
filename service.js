@@ -11,7 +11,7 @@ const login = async (params) => {
     let responsive = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         body: JSON.stringify(params),
-        headers : {
+        headers: {
             "content-type": "application/json"
         }
     })
@@ -24,25 +24,25 @@ let getAllCategory = async () => {
     let res = await fetch(`${BASE_URL}/category`)
     let data = await res.json()
     return data
-    
-} 
+
+}
 
 let createNews = async (params) => {
     let res = await fetch(`${BASE_URL}/news`, {
         method: "POST",
-        body: JSON.stringify(params), 
+        body: JSON.stringify(params),
         headers: {
             "content-type": "application/json",
-            "authorization" : `Bearer ${tokens}`
+            "authorization": `Bearer ${tokens}`
         }
     })
     let data = await res.json()
     return data
 }
 
-let createCategory = async (params) =>{
-    let res = await fetch(`${BASE_URL}/category`,{
-        method : "POST",
+let createCategory = async (params) => {
+    let res = await fetch(`${BASE_URL}/category`, {
+        method: "POST",
         body: JSON.stringify(params),
         headers: {
             "content-type": "application/json",
@@ -53,13 +53,49 @@ let createCategory = async (params) =>{
     return data
 }
 
-let createCategoryId = async (params, id) =>{
-    let res = await fetch(`${BASE_URL}/category`,{
-        method : "POST",
+let createCategoryId = async (params, id) => {
+    let res = await fetch(`${BASE_URL}/category`, {
+        method: "POST",
         body: JSON.stringify(params),
         headers: {
             "content-type": "application/json",
             "Authorization": `Bearer ${tokens}`
+        }
+    })
+    let data = await res.json()
+    return data
+}
+
+let deleteCayegories = async () => {
+    let res = await fetch(`${BASE_URL}/category`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${tokens}`
+        }
+    })
+    let data = await res.json()
+    return data
+}
+
+let deleteCategoryId = async (id) => {
+    let res = await fetch(`${BASE_URL}/category/${id}`, {
+        method: "DELETE",
+        headers: {
+            "authorization": `Bearer ${tokens}`
+        }
+
+    })
+    let data = await res.json()
+    return data
+}
+
+let updateCategoryId = async (id, params) => {
+    let res = await fetch(`${BASE_URL}/category/${id}`, {
+        method: "POST",
+        body: JSON.stringify(params),
+        headers: {
+            "content-type": "application/json",
+            "authorization": `Bearer ${tokens}`
         }
     })
     let data = await res.json()

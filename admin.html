@@ -203,8 +203,39 @@
                 Category Table
               </h2>
               <!-- Open the modal using ID.showModal() method -->
-              <button class="btn bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm"
-                onclick="my_modal_2.showModal()">+ Add Category</button>
+              <div>
+                <button onclick="my_modal_1.showModal()"
+                  class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">Delete All
+                  Categories</button>
+                <button class="btn bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm"
+                  onclick="my_modal_2.showModal()">+ Add Category</button>
+              </div>
+              <dialog id="my_modal_1" class="modal">
+                <div class="modal-box">
+                  <h3 class="text-lg font-bold">Are you sure you want to delete all categories?</h3>
+                  <p class="py-4">Enter your email and password</p>
+                  <form id="deleteCategoriesForm" method="dialog">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">
+                        Email
+                      </label>
+                      <input required type="email" placeholder="Enter email " class="input input-bordered w-full" />
+                    </div>
+                    <div>
+                      <label class="block mt-3 text-sm font-medium text-gray-600 mb-1">
+                        Password
+                      </label>
+                      <input required type="password" placeholder="Enter password "
+                        class="input input-bordered w-full" />
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <button class="btn mt-4" onclick="my_modal_1.close()">Close</button>
+                      <button id="deleteAllCategories"
+                        class="btn mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">Delete</button>
+                    </div>
+                  </form>
+                </div>
+              </dialog>
               <!-- Modal -->
               <dialog id="my_modal_2" class="modal">
                 <div class="modal-box w-11/12 max-w-lg">
