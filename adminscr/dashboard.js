@@ -6,7 +6,7 @@ let totalLikes = document.getElementById("totalLikes")
 
 
 async function totalNewsShow() {
-    let res = await getAllNews()
+    let res = await getAllNewsAdmin()
     totalNews.innerHTML = res.items.length
 }
 totalNewsShow()
@@ -42,7 +42,7 @@ totalLikesShow()
 let latestNewsTable = document.getElementById("latestNewsTable")
 async function latestNews() {
     loaderStatus(true)
-    let res = await getAllNews()
+    let res = await getAllNewsAdmin()
     let arr = res.items.splice((res.items.length - 3), res.items.length).reverse()
     renderLatestNews(arr)
     loaderStatus(false)
@@ -54,7 +54,7 @@ function renderLatestNews(arr) {
     arr.map(item => empty += `
                               <tr class="border-b hover:bg-gray-50 transition">
                         <td class="py-4">${item.title}</td>
-                        <td>${item.category}</td>
+                        <td>${item.category.title}</td>
                         <td>${(item.createdAt).split("T")[0]}</td>
                         <td>
                           <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">

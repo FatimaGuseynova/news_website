@@ -43,6 +43,7 @@ categoryForm.onsubmit = async (e) => {
     });
   }
   getCategory()
+  totalCategoriesShow()
 
 
 }
@@ -89,6 +90,7 @@ deleteCategoriesForm.onsubmit = async (e) => {
   }
 
   getCategory()
+  totalCategoriesShow()
 }
 
 async function deleteCategoryIdBtn(id) {
@@ -97,13 +99,16 @@ async function deleteCategoryIdBtn(id) {
     showCancelButton: true,
     confirmButtonText: "Delete",
   }).then(async (result) => {
-    let res = await deleteCategoryId(id)
-    if (result.isConfirmed) Swal.fire("Deleted!", "", "success");
-    await getCategory()
-    await getNews()
+    if (result.isConfirmed) {
+      await deleteCategoryId(id);
+      await Swal.fire("Deleted!", "", "success");
+      await getCategory();
+      await getNews();
+      
+  totalCategoriesShow()
+    }
   });
 }
-
 categoryFormUp.onsubmit = async (e, id) => {
   e.preventDefault(e)
   let params = { title: titleinp1.value, slug: titleinp2.value }

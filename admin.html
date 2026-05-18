@@ -149,7 +149,7 @@
               <div class="bg-white rounded-2xl shadow p-5">
                 <div class="flex items-center justify-between mb-5">
                   <h2 class="text-xl font-semibold">Latest Users</h2>
-                  
+
                 </div>
 
                 <div class="overflow-x-auto">
@@ -180,11 +180,38 @@
             <div class="flex justify-between items-center mb-4">
               <h2 class="text-lg font-semibold text-gray-700">News Table</h2>
               <div>
-                <button class="btn text-white bg-red-500 hover:bg-red-600 rounded-[10px] mr-2"
-                  onclick="deleteAllNewsBtn()">Delete All News</button>
+                <button onclick="my_modal_8.showModal()"
+                  class="btn text-white bg-red-500 hover:bg-red-600 rounded-[10px] mr-2">Delete All News</button>
                 <button class="btn text-white bg-gray-700 hover:bg-gray-800 rounded-[10px]"
                   onclick="my_modal_3.showModal()"><i class="fa-solid fa-plus"></i> Add News</button>
               </div>
+              
+              <dialog id="my_modal_8" class="modal">
+                <div class="modal-box">
+                  <h3 class="text-lg font-bold">Are you sure you want to delete all news?</h3>
+                  <p class="py-4">Enter your email and password</p>
+                  <form id="deleteNewsForm" method="dialog">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">
+                        Email
+                      </label>
+                      <input required type="email" placeholder="Enter email " class="input input-bordered w-full" />
+                    </div>
+                    <div>
+                      <label class="block mt-3 text-sm font-medium text-gray-600 mb-1">
+                        Password
+                      </label>
+                      <input required type="password" placeholder="Enter password "
+                        class="input input-bordered w-full" />
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <button class="btn mt-4" onclick="my_modal_8.close()">Close</button>
+                      <button
+                        class="btn mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">Delete</button>
+                    </div>
+                  </form>
+                </div>
+              </dialog>
               <dialog id="my_modal_3" class="modal">
                 <div class="modal-box bg-[#1a1d24] text-gray-300 border border-gray-700 max-w-lg">
 
@@ -319,6 +346,7 @@
                   </form>
                 </div>
               </dialog>
+
             </div>
 
 

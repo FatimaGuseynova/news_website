@@ -7,6 +7,12 @@ const getAllNews = async (page = 1, limit = 10) => {
     return data
 }
 
+let getAllNewsAdmin = async () => {
+    let res = await fetch(`${BASE_URL}/news?page=${1}&limit=${100}`)
+    let data = await res.json()
+    return data
+}
+
 const login = async (params) => {
     let responsive = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
@@ -66,16 +72,6 @@ let createCategoryId = async (params, id) => {
     return data
 }
 
-let deleteCayegories = async () => {
-    let res = await fetch(`${BASE_URL}/category`, {
-        method: "DELETE",
-        headers: {
-            "Authorization": `Bearer ${tokens}`
-        }
-    })
-    let data = await res.json()
-    return data
-}
 
 let deleteCategoryId = async (id) => {
     let res = await fetch(`${BASE_URL}/category/${id}`, {
@@ -148,6 +144,17 @@ let updateNewsIdSave = async (id, params) => {
 
 let deleteAllNews = async () => {
     let res = await fetch(`${BASE_URL}/news`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${tokens}`
+        }
+    })
+    let data = await res.json()
+    return data
+}
+
+let deleteCayegories = async () => {
+    let res = await fetch(`${BASE_URL}/category`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${tokens}`

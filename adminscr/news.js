@@ -28,10 +28,12 @@ addNews.onsubmit = async function (e) {
   }
 
   getNews()
+  latestNews()
+  totalNewsShow()
 }
 
 async function getNews() {
-  let data = await getAllNews()
+  let data = await getAllNewsAdmin()
   renderNews(data.items)
 }
 getNews()
@@ -59,9 +61,14 @@ async function deleteNews(id) {
     showCancelButton: true,
     confirmButtonText: "Delete",
   }).then(async (result) => {
-    let res = await deleteNewsId(id)
-    if (result.isConfirmed) Swal.fire("Deleted!", "", "success");
-    await getNews()
+    if (result.isConfirmed) {
+      await deleteNewsId(id);
+      await Swal.fire("Deleted!", "", "success");
+      await getCategory();
+      await getNews();
+  latestNews()
+  totalNewsShow()
+    }
   });
 
 }
@@ -75,7 +82,7 @@ async function updateNews(id) {
   globalIdUp = id
   my_modal_5.showModal()
   loaderDataStatus(true)
-  let {news} = await updateNewsId(id)
+  let { news } = await updateNewsId(id)
   inputsUp[0].value = news.title
   inputsUp[1].value = news.content
   inputsUp[2].value = news.slug
@@ -109,6 +116,40 @@ updateNewsForm.onsubmit = async function (e) {
   }
 
   getNews()
+}
+
+let deleteNewsForm = document.getElementById("deleteNewsForm")
+let newsInputs = deleteNewsForm.querySelectorAll("input")
+
+deleteNewsForm.onsubmit = async (e) => {
+  e.preventDefault()
+  let [email, password] = Array.from(newsInputs).map(item => item.value)
+  let obj = { email, password }
+  let res = await login(obj)
+  if (res.error || res.user.role == "user") {
+    my_modal_8.close()
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong!",
+    });
+
+  }
+  else {
+
+
+    let res = await deleteAllNews()
+    console.log(res)
+    my_modal_8.close()
+    Swal.fire({
+      title: "Success!",
+      icon: "success",
+    });
+  }
+
+  getNews()
+  latestNews()
+  totalNewsShow()
 }
 
 function renderNews(arr) {
