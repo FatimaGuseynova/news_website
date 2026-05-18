@@ -91,16 +91,100 @@
 
       <!-- Content -->
       <main class="p-6">
-        <div id="dashboard" class="page">Dashboard</div>
+        <div id="dashboard" class="page">
+          <div class="p-6 bg-gray-100 min-h-screen">
+
+            <!-- Top Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+
+              <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500 text-sm">Total News</p>
+                <h2 id="totalNews" class="text-3xl font-bold mt-2"></h2>
+              </div>
+
+              <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500 text-sm">Users</p>
+                <h2 id="totalUsers" class="text-3xl font-bold mt-2"></h2>
+              </div>
+
+              <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500 text-sm">Categories</p>
+                <h2 id="totalCategories" class="text-3xl font-bold mt-2"></h2>
+              </div>
+
+              <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500 text-sm">Likes</p>
+                <h2 id="totalLikes" class="text-3xl font-bold mt-2"></h2>
+              </div>
+
+            </div>
+
+            <!-- Tables -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+
+              <!-- Latest News -->
+              <div class="bg-white rounded-2xl shadow p-5">
+                <div class="flex items-center justify-between mb-5">
+                  <h2 class="text-xl font-semibold">Latest News</h2>
+                </div>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left">
+                    <thead>
+                      <tr class="border-b text-gray-500 text-sm">
+                        <th class="pb-3">Title</th>
+                        <th class="pb-3">Category</th>
+                        <th class="pb-3">Date</th>
+                        <th class="pb-3">Slug</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="latestNewsTable">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Latest Users -->
+              <div class="bg-white rounded-2xl shadow p-5">
+                <div class="flex items-center justify-between mb-5">
+                  <h2 class="text-xl font-semibold">Latest Users</h2>
+                  
+                </div>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left">
+                    <thead>
+                      <tr class="border-b text-gray-500 text-sm">
+                        <th class="pb-3">Username</th>
+                        <th class="pb-3">Role</th>
+                        <th class="pb-3">Gender</th>
+                        <th class="pb-3">Email</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="latestUsersTable">
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
         <div id="news" class="page hidden">
           <div class="p-6">
 
             <!-- Header -->
             <div class="flex justify-between items-center mb-4">
               <h2 class="text-lg font-semibold text-gray-700">News Table</h2>
-              <!-- You can open the modal using ID.showModal() method -->
-              <button class="btn text-white bg-gray-700 rounded-[10px]" onclick="my_modal_3.showModal()"><i
-                  class="fa-solid fa-plus"></i> Add News</button>
+              <div>
+                <button class="btn text-white bg-red-500 hover:bg-red-600 rounded-[10px] mr-2"
+                  onclick="deleteAllNewsBtn()">Delete All News</button>
+                <button class="btn text-white bg-gray-700 hover:bg-gray-800 rounded-[10px]"
+                  onclick="my_modal_3.showModal()"><i class="fa-solid fa-plus"></i> Add News</button>
+              </div>
               <dialog id="my_modal_3" class="modal">
                 <div class="modal-box bg-[#1a1d24] text-gray-300 border border-gray-700 max-w-lg">
 
@@ -165,6 +249,76 @@
                   </form>
                 </div>
               </dialog>
+              <dialog id="my_modal_5" class="modal">
+                <div class="modal-box bg-[#1a1d24] text-gray-300 border border-gray-700 max-w-lg">
+
+                  <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-gray-400">
+                      ✕
+                    </button>
+                  </form>
+                  <form id="updateNewsForm" method="dialog">
+
+                    <div class="flex items-center gap-2 mb-6">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
+                      <h3 class="text-lg font-semibold text-white">Update News</h3>
+                      <!-- From Uiverse.io by Javierrocadev -->
+                      <div id="loaderData" class="flex flex-row ml-3 gap-1.5">
+                        <div class="w-2 h-2 rounded-full bg-blue-700 animate-bounce [animation-delay:.7s]"></div>
+                        <div class="w-2 h-2 rounded-full bg-blue-700 animate-bounce [animation-delay:.3s]"></div>
+                        <div class="w-2 h-2 rounded-full bg-blue-700 animate-bounce [animation-delay:.7s]"></div>
+                      </div>
+                    </div>
+
+                    <div class="space-y-4">
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Title</span></label>
+                        <input required type="text" placeholder="Enter title"
+                          class="input input-bordered w-full bg-[#242933] border-gray-600 focus:border-blue-500" />
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Content</span></label>
+                        <textarea required placeholder="Minimum content..."
+                          class="textarea textarea-bordered h-24 bg-[#242933] border-gray-600 focus:border-blue-500 w-full"></textarea>
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Slug</span></label>
+                        <input required type="text"
+                          class="input input-bordered w-full bg-[#242933] border-gray-600 focus:border-blue-500" />
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Category</span></label>
+                        <fieldset class="fieldset p-0 border-none shadow-none">
+                          <select required id="updateCategorySelect"
+                            class="select select-bordered w-full bg-[#242933] border-gray-600 text-gray-300 focus:outline-none">
+                            <option disabled selected>Pick a category</option>
+                          </select>
+                        </fieldset>
+                      </div>
+
+                      <div class="form-control">
+                        <label class="label pt-0"><span class="label-text text-gray-400">Thumbnail URL</span></label>
+                        <input required type="text" placeholder="https://kvneklvnlk/lmkk"
+                          class="input input-bordered w-full bg-[#242933] border-gray-600 focus:border-blue-500 text-sm" />
+                      </div>
+                    </div>
+
+                    <div class="modal-action mt-8">
+                      <form method="dialog" class="w-full">
+                        <button type="submit"
+                          class="btn btn-primary w-full md:w-auto md:float-right bg-blue-600 border-none hover:bg-blue-700 normal-case">Update</button>
+                      </form>
+                    </div>
+                  </form>
+                </div>
+              </dialog>
             </div>
 
 
@@ -207,7 +361,7 @@
                 <button onclick="my_modal_1.showModal()"
                   class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">Delete All
                   Categories</button>
-                <button class="btn bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm"
+                <button class="btn bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-sm"
                   onclick="my_modal_2.showModal()">+ Add Category</button>
               </div>
               <dialog id="my_modal_1" class="modal">
@@ -370,27 +524,27 @@
         </div>
         <div id="users" class="page hidden">
           <div class="overflow-x-auto bg-white rounded-2xl shadow border border-gray-200">
-  <table class="w-full text-left border-collapse">
+            <table class="w-full text-left border-collapse">
 
-    <!-- Table Head -->
-    <thead class="text-gray-600 text-sm">
-      <tr class="border-b">
-        <th class="px-8 py-6 font-semibold">User</th>
-        <th class="px-4 py-6 font-semibold">Role</th>
-        <th class="px-4 py-6 font-semibold">Provider</th>
-        <th class="px-4 py-6 font-semibold">Gender</th>
-        <th class="px-4 py-6 font-semibold">Password</th>
-      </tr>
-    </thead>
+              <!-- Table Head -->
+              <thead class="text-gray-600 text-sm">
+                <tr class="border-b">
+                  <th class="px-8 py-6 font-semibold">User</th>
+                  <th class="px-4 py-6 font-semibold">Role</th>
+                  <th class="px-4 py-6 font-semibold">Provider</th>
+                  <th class="px-4 py-6 font-semibold">Gender</th>
+                  <th class="px-4 py-6 font-semibold">Password</th>
+                </tr>
+              </thead>
 
-    <!-- Table Body -->
-    <tbody id="userTable">
-      
-    </tbody>
+              <!-- Table Body -->
+              <tbody id="userTable">
 
-  </table>
-</div>
-          
+              </tbody>
+
+            </table>
+          </div>
+
         </div>
       </main>
 
@@ -407,6 +561,7 @@
   <script src="adminscr/news.js"></script>
   <script src="adminscr/category.js"></script>
   <script src="adminscr/users.js"></script>
+  <script src="adminscr/dashboard.js"></script>
 
 </body>
 

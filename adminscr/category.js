@@ -104,9 +104,9 @@ async function deleteCategoryIdBtn(id) {
   });
 }
 
-categoryFormUp.onsubmit = async(e, id) =>{
+categoryFormUp.onsubmit = async (e, id) => {
   e.preventDefault(e)
-  let params = {title: titleinp1.value, slug: titleinp2.value}
+  let params = { title: titleinp1.value, slug: titleinp2.value }
   let res = await updateCategoryId(globalId, params)
   await getCategory()
   my_modal_4.close()

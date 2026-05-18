@@ -126,3 +126,33 @@ let deleteNewsId = async (id) => {
     let data = await res.json()
     return data
 }
+
+let updateNewsId = async (id) => {
+    let res = await fetch(`${BASE_URL}/news/${id}`)
+    let data = await res.json()
+    return data
+}
+
+let updateNewsIdSave = async (id, params) => {
+    let res = await fetch(`${BASE_URL}/news/${id}`, {
+        method: "POST",
+        body: JSON.stringify(params),
+        headers: {
+            "content-type": "application/json",
+            "authorization": `Bearer ${tokens}`
+        }
+    })
+    let data = await res.json()
+    return data
+}
+
+let deleteAllNews = async () => {
+    let res = await fetch(`${BASE_URL}/news`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${tokens}`
+        }
+    })
+    let data = await res.json()
+    return data
+}

@@ -2,6 +2,7 @@ let newsTable = document.getElementById("newsTable")
 let categorySelect = document.getElementById("categorySelect")
 let addNews = document.getElementById("addNews")
 let inputsForm = document.querySelectorAll("#addNews input, #addNews textarea, #addNews select")
+let updateCategorySelect = document.getElementById("updateCategorySelect")
 
 addNews.onsubmit = async function (e) {
   e.preventDefault
@@ -30,10 +31,8 @@ addNews.onsubmit = async function (e) {
 }
 
 async function getNews() {
-  loaderStatus(true)
   let data = await getAllNews()
   renderNews(data.items)
-  loaderStatus(false)
 }
 getNews()
 
@@ -50,11 +49,13 @@ function renderCategorySelect(arr) {
                           <option value="${item.id}" >${item.title}</option>
     `)
   categorySelect.innerHTML += empty
+  updateCategorySelect.innerHTML += empty
+
 }
 
 async function deleteNews(id) {
   Swal.fire({
-    title: "Do you want to delete this category?",
+    title: "Do you want to delete this news?",
     showCancelButton: true,
     confirmButtonText: "Delete",
   }).then(async (result) => {
@@ -63,6 +64,51 @@ async function deleteNews(id) {
     await getNews()
   });
 
+}
+
+
+let updateNewsForm = document.getElementById("updateNewsForm")
+let inputsUp = updateNewsForm.querySelectorAll("input, select, textarea")
+
+let globalIdUp = 0
+async function updateNews(id) {
+  globalIdUp = id
+  my_modal_5.showModal()
+  loaderDataStatus(true)
+  let {news} = await updateNewsId(id)
+  inputsUp[0].value = news.title
+  inputsUp[1].value = news.content
+  inputsUp[2].value = news.slug
+  inputsUp[3].value = news.category.id
+  inputsUp[4].value = news.thumbnail
+  loaderDataStatus(false)
+
+}
+
+updateNewsForm.onsubmit = async function (e) {
+  e.preventDefault
+  let [title, content, slug, categoryId, thumbnail] = Array.from(inputsUp).map(item => item.value)
+  let obj = {
+    title, content, slug, categoryId: +categoryId, thumbnail
+  }
+  let data = await updateNewsIdSave(globalIdUp, obj)
+  if (data.error) {
+    my_modal_3.close()
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: data.message[0],
+    });
+  }
+  else {
+    my_modal_3.close()
+    Swal.fire({
+      title: data.message,
+      icon: "success",
+    });
+  }
+
+  getNews()
 }
 
 function renderNews(arr) {
@@ -116,7 +162,7 @@ function renderNews(arr) {
                     <!-- Actions -->
                     <td class="px-6 py-4">
                       <div class="flex gap-2">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-md">
+                        <button onclick="updateNews(${item.id})" class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-md">
                           Edit
                         </button>
                         <button onclick="deleteNews(${item.id})" class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded-md">
@@ -129,3 +175,4 @@ function renderNews(arr) {
         `)
   newsTable.innerHTML = empty
 }
+

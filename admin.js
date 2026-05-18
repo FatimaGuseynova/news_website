@@ -9,9 +9,14 @@ Array.from(tab).map((item, index) => item.onclick = function () {
 })
 
 let loaderComp = document.getElementById("loaderComp")
+let loaderData = document.getElementById("loaderData")
 
 function loaderStatus(status) {
     status ? loaderComp.classList.remove("hidden") : loaderComp.classList.add("hidden")
+}
+function loaderDataStatus(status) {
+    status ? loaderData.classList.remove("hidden") : loaderData.classList.add("hidden")
+
 }
 
 let logOut = () => {
