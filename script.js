@@ -194,9 +194,9 @@ function renderLatestNewsSkeleton() {
 
 /** News list skeleton */
 function renderNewsSkeleton(count = 6) {
-    let html = "";
+    let empty = "";
     for (let i = 0; i < count; i++) {
-        html += `
+        empty += `
         <div class="bg-white px-6 py-5 grid gap-[18px] items-start animate-pulse"
              style="grid-template-columns: 90px 1fr; animation-delay: ${i * 0.07}s;">
             <div class="w-[90px] h-[70px] bg-gray-200 rounded-md flex-shrink-0"></div>
@@ -208,14 +208,14 @@ function renderNewsSkeleton(count = 6) {
             </div>
         </div>`;
     }
-    demo.innerHTML = html;
+    demo.innerHTML = empty;
 }
 
 /** Sidebar categories skeleton */
 function renderCategoriesSkeleton(count = 5) {
-    let html = "";
+    let empty = "";
     for (let i = 0; i < count; i++) {
-        html += `
+        empty += `
         <div class="flex items-center gap-3 mb-5 animate-pulse" style="animation-delay: ${i * 0.08}s;">
             <div class="min-w-[36px] h-10 bg-gray-200 rounded w-9"></div>
             <div class="space-y-2 flex-1">
@@ -225,7 +225,7 @@ function renderCategoriesSkeleton(count = 5) {
             </div>
         </div>`;
     }
-    categoriesMain.innerHTML = html;
+    categoriesMain.innerHTML = empty;
 }
 
 // ============================================================
@@ -233,9 +233,9 @@ function renderCategoriesSkeleton(count = 5) {
 // ============================================================
 
 function renderPagination(activePage, totalPage) {
-    let html = "";
+    let empty = "";
     Array.from({ length: totalPage }).forEach((_, i) => {
-        html += `
+        empty += `
         <button
             onclick="changePage(${i + 1})"
             class="px-4 py-2 text-[13px] font-medium border border-border2 bg-white text-paper
@@ -243,13 +243,13 @@ function renderPagination(activePage, totalPage) {
                    ${activePage === i + 1 ? "!bg-accent !text-white !border-accent shadow-sm" : ""}"
         >${i + 1}</button>`;
     });
-    pageEl.innerHTML = html;
+    pageEl.innerHTML = empty;
 }
 
 function renderCards(arr) {
-    let html = "";
+    let empty = "";
     arr.forEach(item => {
-        html += `
+        empty += `
         <div onclick="newsReadMore(${item.id})"
              class="bg-white px-6 py-5 grid gap-[18px] items-start cursor-pointer transition-colors hover:bg-surface"
              style="grid-template-columns: 90px 1fr;">
@@ -261,13 +261,13 @@ function renderCards(arr) {
             </div>
         </div>`;
     });
-    demo.innerHTML = html;
+    demo.innerHTML = empty;
 }
 
 function renderlatestNewsShowMain(arr) {
-    let html = "";
+    let empty = "";
     arr.forEach(item => {
-        html += `
+        empty += `
         <div onclick="newsReadMore(${item.id})"
              class="card bg-white relative overflow-hidden cursor-pointer transition-transform row-span-2 min-h-[520px]">
             <img class="card-img w-full h-full object-cover block transition-transform duration-[600ms] ease-in-out"
@@ -291,13 +291,13 @@ function renderlatestNewsShowMain(arr) {
             </div>
         </div>`;
     });
-    latestNewsMain.innerHTML = html;
+    latestNewsMain.innerHTML = empty;
 }
 
 function renderCategoriesMain(arr) {
-    let html = "";
+    let empty = "";
     arr.forEach((item, i) => {
-        html += `
+        empty += `
         <div class="flex items-center gap-2 mb-4">
             <div class="trend-num font-playfair text-[40px] font-black text-border2 leading-[0.9] min-w-[36px] transition-colors hover:text-[#c8392b]">
                 ${i + 1}
@@ -309,7 +309,7 @@ function renderCategoriesMain(arr) {
             </div>
         </div>`;
     });
-    categoriesMain.innerHTML = html;
+    categoriesMain.innerHTML = empty;
 }
 
 async function getNews(currentPage = 1, limit = 10) {
@@ -370,7 +370,7 @@ const changePage = async (index) => {
     document.getElementById("news").scrollIntoView({ behavior: "smooth" });
 };
 
-// ─── NAVIGATION ──────────────────────────────────────────────
+
 function newsReadMore(id) {
     location.replace(`user/read.html`);
 }
