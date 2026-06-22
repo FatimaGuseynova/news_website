@@ -146,7 +146,7 @@ let deleteAllNews = async () => {
     let res = await fetch(`${BASE_URL}/news`, {
         method: "DELETE",
         headers: {
-            "Authorization": `Bearer ${tokens}`
+            " Authorization": `Bearer ${tokens}`
         }
     })
     let data = await res.json()
@@ -162,4 +162,12 @@ let deleteCayegories = async () => {
     })
     let data = await res.json()
     return data
+}
+
+let createUser = async () => {
+    let res = await fetch(`${BASE_URL}/users/me`,{
+        method: "POST",
+
+
+    })
 }

@@ -1,105 +1,455 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>F-145 | NEWS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/dist/full.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link href="./output.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        dm: ['"DM Sans"', 'sans-serif'],
+                        mono2: ['"DM Mono"', 'monospace'],
+                    },
+                    colors: {
+                        accent: '#c8392b',
+                        accent2: '#d97706',
+                        paper: '#111827',
+                        ink: '#ffffff',
+                        muted: '#6b7280',
+                        border2: '#e5e7eb',
+                        surface: '#f9fafb',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            'from': { opacity: '0' },
+                            'to': { opacity: '1' },
+                        },
+                        ticker: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                    },
+                    animation: {
+                        fadeUp: 'fadeUp 0.8s ease both',
+                        fadeUp2: 'fadeUp 0.8s ease both 0.4s',
+                        fadeIn: 'fadeIn 1s ease both 0.2s',
+                        ticker: 'ticker 30s linear infinite',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c8392b;
+            border-radius: 2px;
+        }
+
+        .cats::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hero-tag::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #c8392b;
+        }
+
+        .nav-link-item::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c8392b;
+            transition: width 0.25s;
+        }
+
+        .nav-link-item:hover::after {
+            width: 100%;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, #f8f9fa 0%, transparent 40%);
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.03);
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .newsletter::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -40px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+        }
+    </style>
 </head>
 
-<body>
-    <div class="navbar bg-base-100 shadow-sm">
-        <div class="flex-1">
-            <img class="object-cover w-[140px]" src="img/cce39313-b878-4e10-b1da-14c3e98c8825.jpg" alt="logo">
+<body class="bg-white text-paper font-dm font-normal leading-relaxed overflow-x-hidden">
+
+    <div id="loaderComp" class="fixed hidden flex justify-center items-center z-5 bg-white h-full w-full">
+        <!-- From Uiverse.io by mahendrameghwal -->
+        <div class="w-full gap-x-2 flex justify-center items-center">
+            <div class="w-5 bg-[#d991c2] animate-pulse h-5 rounded-full animate-bounce"></div>
+            <div class="w-5 animate-pulse h-5 bg-[#9869b8] rounded-full animate-bounce"></div>
+            <div class="w-5 h-5 animate-pulse bg-[#6756cc] rounded-full animate-bounce"></div>
         </div>
-        <div class="flex gap-2">
-            <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
-            <div class="dropdown dropdown-end">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                    <div class="w-10 rounded-full">
-                        <img alt="Tailwind CSS Navbar component"
-                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                    </div>
-                </div>
-                <ul tabindex="-1"
-                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                    <li>
-                        <a class="justify-between">
-                            Profile
-                            <span class="badge">New</span>
-                        </a>
-                    </li>
-                    <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
-                </ul>
-            </div>
+
+
+    </div>
+    <div
+        class="bg-accent px-10 py-1.5 flex justify-between items-center font-mono2 text-[11px] tracking-[0.08em] uppercase text-white">
+        <span class="opacity-85" id="topdate"></span>
+        <div class="hidden md:flex gap-6">
+            <span class="before:content-['●_'] before:opacity-60">Technology</span>
+            <span class="before:content-['●_'] before:opacity-60">Science</span>
+            <span class="before:content-['●_'] before:opacity-60">Society</span>
         </div>
     </div>
 
-    <main>
-        <div class="w-[80%] mx-auto ">
-            <div class="hero bg-base-200 h-fit py-[25px] my-[30px]">
-                <div class="hero-content flex-col lg:flex-row-reverse">
-                    <img src="img/cce39313-b878-4e10-b1da-14c3e98c8825.jpg" class="max-w-sm rounded-lg shadow-2xl" />
+    <!-- NAVBAR -->
+    <nav
+        class="sticky top-0 z-[100] bg-white/97 backdrop-blur-md border-b border-border2 px-10 flex items-center justify-between h-[70px] shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+        <a href="#" class="font-playfair text-[28px] font-black tracking-tight text-paper no-underline">
+            F<span class="text-accent">—</span>145
+        </a>
+        <ul class="hidden md:flex gap-8 list-none">
+            <li><a href="#"
+                    class="nav-link-item relative text-[13px] font-medium tracking-[0.06em] uppercase text-muted no-underline transition-colors hover:text-paper">Main</a>
+            </li>
+            <li><a href="#"
+                    class="nav-link-item relative text-[13px] font-medium tracking-[0.06em] uppercase text-muted no-underline transition-colors hover:text-paper">Technology</a>
+            </li>
+            <li><a href="#"
+                    class="nav-link-item relative text-[13px] font-medium tracking-[0.06em] uppercase text-muted no-underline transition-colors hover:text-paper">Science</a>
+            </li>
+            <li><a href="#"
+                    class="nav-link-item relative text-[13px] font-medium tracking-[0.06em] uppercase text-muted no-underline transition-colors hover:text-paper">Society</a>
+            </li>
+            <li><a href="#"
+                    class="nav-link-item relative text-[13px] font-medium tracking-[0.06em] uppercase text-muted no-underline transition-colors hover:text-paper">Culture</a>
+            </li>
+        </ul>
+        <div class="flex items-center gap-4">
+            <div>
+                <button class="bg-accent text-white px-[30px] py-2 rounded-2xl text-[16px] font-semibold font-dm cursor-pointer transition-opacity hover:opacity-90 border-none">Log In</button>
+            </div>
+            <!-- <div class="relative group">
+                <div
+                    class="w-[38px] h-[38px] rounded-full overflow-hidden border-2 border-border2 cursor-pointer transition-colors group-hover:border-accent">
+                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="profile"
+                        class="w-full h-full object-cover">
+                </div>
+                <div
+                    class="absolute top-full right-0 mt-1 bg-white border border-border2 rounded-[10px] w-40 p-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-[0_16px_40px_rgba(0,0,0,0.12)] z-50">
+
+                    <a href="#"
+                        class="block px-3.5 py-2.5 text-[13px] text-paper no-underline rounded-[7px] transition-colors hover:bg-border2">
+                        Profile
+                    </a>
+
+                    <a href="#"
+                        class="block px-3.5 py-2.5 text-[13px] text-paper no-underline rounded-[7px] transition-colors hover:bg-border2">
+                        Log Out
+                    </a>
+
+                </div>
+            </div> -->
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden min-h-[85vh] grid grid-cols-1 lg:grid-cols-2 items-center">
+        <div class="absolute inset-0 z-0" style="background: linear-gradient(135deg, #f8f9fa 40%, #fff5f4 100%);">
+        </div>
+        <div class="absolute inset-0 z-[1] opacity-40"
+            style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27 opacity=%270.04%27/%3E%3C/svg%3E');">
+        </div>
+        <div class="relative z-[2] px-10 lg:px-20 py-20 animate-fadeUp">
+            <div
+                class="hero-tag inline-flex items-center gap-2 font-mono2 text-[11px] tracking-[0.12em] uppercase text-accent mb-5">
+                Top story of the day
+            </div>
+            <h1 class="font-playfair text-[clamp(36px,4vw,64px)] font-black leading-[1.05] tracking-tight mb-6">
+                The future is <em class="not-italic text-accent2">today.</em><br>Information is power.
+            </h1>
+            <p class="text-base text-[#4b5563] max-w-[460px] leading-[1.75] mb-9">
+                Current news, analysis, and reports from around the world. Stay informed about the events that are
+                changing our lives. </p>
+            <div class="flex gap-4 items-center">
+                <a href="#news"
+                    class="bg-accent text-white px-7 py-3.5 rounded-md text-[13px] font-medium tracking-[0.04em] uppercase transition-all no-underline hover:bg-[#a82e24] hover:-translate-y-px">
+                    Read news
+                </a>
+                <a href="#"
+                    class="text-muted text-[13px] tracking-[0.04em] uppercase flex items-center gap-2 no-underline transition-colors hover:text-paper">
+                    Our channel <span>→</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-image relative z-[2] h-full min-h-[85vh] lg:min-h-[85vh] overflow-hidden animate-fadeIn">
+            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900" alt="hero"
+                class="card-img w-full h-full object-cover opacity-70 transition-transform duration-[8000ms] ease-linear">
+        </div>
+        <div class="absolute bottom-10 left-10 lg:left-20 z-[3] flex gap-12 animate-fadeUp2">
+            <div>
+                <div class="font-playfair text-[32px] font-bold text-paper leading-none">2.4M</div>
+                <div class="text-[11px] text-muted uppercase tracking-[0.08em] mt-1">Readers</div>
+            </div>
+            <div>
+                <h2 class="font-playfair text-[32px] font-bold text-paper leading-none" id="totalCategoriesMain">
+                </h2>
+                <div class="text-[11px] text-muted uppercase tracking-[0.08em] mt-1">Categories</div>
+            </div>
+            <div>
+                <div class="font-playfair text-[32px] font-bold text-paper leading-none">24/7</div>
+                <div class="text-[11px] text-muted uppercase tracking-[0.08em] mt-1">Online</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BREAKING NEWS TICKER -->
+    <div class="bg-accent py-2.5 overflow-hidden relative">
+        <div
+            class="absolute left-0 top-0 bottom-0 bg-[#1f2937] text-white px-5 flex items-center font-mono2 text-[11px] font-medium tracking-[0.1em] uppercase z-[2] whitespace-nowrap">
+            Breaking
+        </div>
+        <div class="flex pl-[140px] animate-ticker whitespace-nowrap">
+            <span class="ticker-item px-10 text-[13px] font-normal text-white opacity-90">New data on the state of
+                the
+                global economy has been published by the IMF.</span>
+            <span class="ticker-item px-10 text-[13px] font-normal text-white opacity-90">Scientists have discovered
+                a
+                rare phenomenon in a distant star system.</span>
+            <span class="ticker-item px-10 text-[13px] font-normal text-white opacity-90">A major technology forum
+                opens
+                in Geneva</span>
+            <span class="ticker-item px-10 text-[13px] font-normal text-white opacity-90">Climate summit: countries
+                are
+                agreeing on new measures</span>
+            <span class="ticker-item px-10 text-[13px] font-normal text-white opacity-90">Scientists have discovered
+                a
+                rare phenomenon in a distant star system.</span>
+            <span class="ticker-item px-10 text-[13px] font-normal text-white opacity-90">New data on the state of
+                the
+                global economy has been published by the IMF.</span>
+            <span class="ticker-item px-10 text-[13px] font-normal text-white opacity-90">A major technology forum
+                opens
+                in Geneva</span>
+        </div>
+    </div>
+
+    <!-- CATEGORIES BAR -->
+    <div class="cats bg-surface border-b border-border2 px-10 flex overflow-x-auto" style="scrollbar-width: none;">
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-accent border-b-2 border-accent cursor-pointer whitespace-nowrap select-none transition-all">
+            All</div>
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-muted border-b-2 border-transparent cursor-pointer whitespace-nowrap select-none transition-all hover:text-paper">
+            Technology</div>
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-muted border-b-2 border-transparent cursor-pointer whitespace-nowrap select-none transition-all hover:text-paper">
+            Science</div>
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-muted border-b-2 border-transparent cursor-pointer whitespace-nowrap select-none transition-all hover:text-paper">
+            Economy</div>
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-muted border-b-2 border-transparent cursor-pointer whitespace-nowrap select-none transition-all hover:text-paper">
+            Culture</div>
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-muted border-b-2 border-transparent cursor-pointer whitespace-nowrap select-none transition-all hover:text-paper">
+            Sport</div>
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-muted border-b-2 border-transparent cursor-pointer whitespace-nowrap select-none transition-all hover:text-paper">
+            Health</div>
+        <div
+            class="cat-item px-[22px] py-4 text-xs font-medium tracking-[0.06em] uppercase text-muted border-b-2 border-transparent cursor-pointer whitespace-nowrap select-none transition-all hover:text-paper">
+            Ecology</div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main id="news">
+        <div class="w-full mx-auto px-10">
+            <div class="py-16">
+                <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12">
+
+                    <!-- LEFT COLUMN -->
                     <div>
-                        <h1 class="text-5xl font-bold">F-145 News!</h1>
-                        <p class="py-6">
-                            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                            quasi. In deleniti eaque aut repudiandae et a id nisi.
-                        </p>
+                        <!-- Featured Grid -->
+                        <div class="flex items-baseline justify-between mb-8">
+                            <h2 class="font-playfair text-[28px] font-bold tracking-[-0.01em]">Last <span
+                                    class="text-accent">news</span></h2>
+                        </div>
+                        <div class="grid grid-cols-[2fr_1fr] grid-rows-[auto_auto] gap-px bg-border2 rounded-xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
+                            id="latestNewsMain">
+                        </div>
+
+
+                        <!-- Latest News List -->
+                        <div class="flex items-baseline justify-between mb-8 mt-16">
+                            <h2 class="font-playfair text-[28px] font-bold tracking-[-0.01em]">All <span
+                                    class="text-accent">news</span></h2>
+                        </div>
+                        <div class="flex flex-col gap-px bg-border2 rounded-xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
+                            id="demo">
+                        </div>
+                        <div class="flex items-center my-4 justify-center">
+                            <div id="page" class="join">
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="newsletter relative overflow-hidden rounded-2xl p-12 text-center text-white mt-12"
+                            style="background: linear-gradient(135deg, #c8392b 0%, #8b1e16 100%);">
+                            <h3 class="font-playfair text-[28px] font-black mb-3 relative z-[1]">Be The First</h3>
+                            <p class="text-sm opacity-75 mb-6 relative z-[1]">Create your profile on the F-145 news
+                                platform</p>
+                            <div class="flex relative z-[1] justify-center">
+                                <button onclick="registrationFormUser()"
+                                    class="bg-white text-accent px-[35px] py-2.5 rounded-2xl text-[17px] font-semibold font-dm cursor-pointer transition-opacity hover:opacity-90 border-none">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
+
+                    <!-- RIGHT SIDEBAR -->
+                    <aside>
+                        <div class="flex items-baseline justify-between mb-8">
+                            <h2 class="font-playfair text-[28px] font-bold tracking-[-0.01em]">Categories</h2>
+                        </div>
+
+                        <div
+                            class="trending-item flex items-start gap-4 py-5 border-b border-border2 cursor-pointer last:border-b-0">
+                            <div id="categoriesMain">
+                            </div>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </div>
-        <div id="demo" class="mx-auto w-[85%] flex flex-wrap gap-5 justify-center items-center">
-
-
-        </div>
-        <div class="flex items-center my-4 justify-center">
-            <div id="page" class="join">
-            </div>
-        </div>
-
     </main>
 
-    <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
-        <aside>
-            <img class="object-cover w-[200px]" src="img/cce39313-b878-4e10-b1da-14c3e98c8825.jpg" alt="logo-footer">
-            <p>
-                ACME Industries Ltd.
-                <br />
-                Providing reliable tech since 1992
-            </p>
-        </aside>
-        <nav>
-            <h6 class="footer-title">Services</h6>
-            <a class="link link-hover">Branding</a>
-            <a class="link link-hover">Design</a>
-            <a class="link link-hover">Marketing</a>
-            <a class="link link-hover">Advertisement</a>
-        </nav>
-        <nav>
-            <h6 class="footer-title">Company</h6>
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
-        </nav>
-        <nav>
-            <h6 class="footer-title">Legal</h6>
-            <a class="link link-hover">Terms of use</a>
-            <a class="link link-hover">Privacy policy</a>
-            <a class="link link-hover">Cookie policy</a>
-        </nav>
+    <!-- FOOTER -->
+    <footer class="bg-[#f3f4f6] border-t border-border2 pt-16 pb-8 px-10">
+        <div
+            class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-12 border-b border-border2 mb-8">
+            <div>
+                <div class="font-playfair text-[32px] font-black text-paper mb-4">F<span class="text-accent">—</span>145
+                </div>
+                <p class="text-sm text-muted leading-[1.7] max-w-[280px]">Independent media. Honest journalism.
+                    Stories
+                    that matter — without unnecessary noise.</p>
+            </div>
+            <div>
+                <h4 class="font-mono2 text-[11px] tracking-[0.12em] uppercase text-paper mb-5">Разделы</h4>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Technology</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Society</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Science</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Economy</a>
+            </div>
+            <div>
+                <h4 class="font-mono2 text-[11px] tracking-[0.12em] uppercase text-paper mb-5">Redaction</h4>
+                <a href="#" class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">О
+                    нас</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Contact</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Vacancies</a>
+                <a href="#" class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Media
+                    kit</a>
+            </div>
+            <div>
+                <h4 class="font-mono2 text-[11px] tracking-[0.12em] uppercase text-paper mb-5">Legal</h4>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Terms</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Privacy</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Cookie</a>
+                <a href="#"
+                    class="block text-sm text-muted no-underline mb-3 transition-colors hover:text-paper">Ads</a>
+            </div>
+        </div>
+        <div class="max-w-[1280px] mx-auto flex justify-between items-center text-xs text-muted">
+            <span>© 2026 F—145. All rights reserved.</span>
+            <div class="flex gap-3">
+                <a href="#"
+                    class="w-9 h-9 border border-border2 rounded-full flex items-center justify-center text-muted no-underline text-sm transition-all hover:border-accent hover:text-accent">𝕏</a>
+                <a href="#"
+                    class="w-9 h-9 border border-border2 rounded-full flex items-center justify-center text-muted no-underline text-sm transition-all hover:border-accent hover:text-accent">in</a>
+                <a href="#"
+                    class="w-9 h-9 border border-border2 rounded-full flex items-center justify-center text-muted no-underline text-sm transition-all hover:border-accent hover:text-accent">tg</a>
+            </div>
+        </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="service.js"></script>
 
+    <script src="service.js"></script>
     <script src="script.js"></script>
 </body>
 

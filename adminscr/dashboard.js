@@ -4,7 +4,6 @@ let totalCategories = document.getElementById("totalCategories")
 let totalLikes = document.getElementById("totalLikes")
 
 
-
 async function totalNewsShow() {
     let res = await getAllNewsAdmin()
     totalNews.innerHTML = res.items.length
