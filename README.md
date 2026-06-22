@@ -98,10 +98,11 @@ headers: {
 
 ### `index.html` + `script.js` — Public News Feed
 
-<img width="1280" height="577" alt="image (1)" src="https://github.com/user-attachments/assets/0a4aa41a-d084-41b9-8a58-a5ab413e5d29" />
+<img width="1919" height="867" alt="image" src="https://github.com/user-attachments/assets/4f5cb2c1-f08f-4b07-9e2a-826351cb5060" />
+
 <br>
 
-<img width="1919" height="866" alt="image" src="https://github.com/user-attachments/assets/98c0d744-7660-4ed5-b29f-6bf1a0c659ed" />
+<img width="1919" height="870" alt="image" src="https://github.com/user-attachments/assets/0d120749-a216-4190-801d-5db19a4130c7" />
 
 
 The homepage visitors see. Fetches and renders news cards dynamically from the API with **pagination support**.
