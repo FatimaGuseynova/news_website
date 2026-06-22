@@ -70,42 +70,7 @@ const FALLBACK_NEWS_ITEMS = [
         thumbnail: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600",
         category: { title: "Health" },
         createdAt: "2025-11-29T16:00:00Z"
-    },
-    {
-        id: 6,
-        title: "Major Tech Giants Announce Unified Standard for AI Safety Benchmarks",
-        thumbnail: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600",
-        category: { title: "Technology" },
-        createdAt: "2025-11-25T10:20:00Z"
-    },
-    {
-        id: 7,
-        title: "Archaeologists Uncover 3,000-Year-Old City Beneath the Saharan Desert",
-        thumbnail: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=600",
-        category: { title: "Science" },
-        createdAt: "2025-11-20T13:00:00Z"
-    },
-    {
-        id: 8,
-        title: "International Film Festival Awards Best Picture to Azerbaijani Drama",
-        thumbnail: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600",
-        category: { title: "Culture" },
-        createdAt: "2025-11-15T19:30:00Z"
-    },
-    {
-        id: 9,
-        title: "Renewable Energy Now Powers Over 40% of the Global Electricity Grid",
-        thumbnail: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600",
-        category: { title: "Science" },
-        createdAt: "2025-11-10T07:00:00Z"
-    },
-    {
-        id: 10,
-        title: "Central Banks Signal Cautious Rate Cuts as Inflation Continues to Ease",
-        thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600",
-        category: { title: "Economy" },
-        createdAt: "2025-11-05T12:00:00Z"
-    },
+    }
 ];
 
 const FALLBACK_NEWS = {
@@ -113,16 +78,12 @@ const FALLBACK_NEWS = {
     meta: { page: 1, totalPages: 1, total: 10 }
 };
 
-// ============================================================
-//  OFFLINE BANNER
-//  Injected once above the news section when API is down.
-// ============================================================
+
 function showOfflineBanner() {
     if (document.getElementById("offlineBanner")) return;
 
     const banner = document.createElement("div");
     banner.id = "offlineBanner";
-    // ↓ replace YOUR_GITHUB_URL with your actual repo link
     banner.innerHTML = `
         <div style="
             background: linear-gradient(90deg, #111827 0%, #1a2332 100%);
@@ -200,12 +161,7 @@ function showOfflineBanner() {
     newsSection.parentNode.insertBefore(banner, newsSection);
 }
 
-// ============================================================
-//  SKELETON TEMPLATES
-//  Displayed immediately while data is being fetched.
-// ============================================================
 
-/** Featured 2×2 grid skeleton */
 function renderLatestNewsSkeleton() {
     latestNewsMain.innerHTML = `
         <div class="bg-gray-100 relative overflow-hidden min-h-[520px] animate-pulse row-span-2">
